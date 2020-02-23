@@ -1,0 +1,67 @@
+{% extends 'layout.html'%}
+{% block head %}
+  {{super()}}
+  {{ dropzone.load_css() }}
+  {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 200px;') }}
+{% endblock head %}  
+
+{% block body %}
+  {{super()}}
+        <div class="content">
+        <main class="container">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class=flashes>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+          <!-- Page title -->
+          <div class="page-header">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  Overview
+                </div>
+                <h2 class="page-title">
+                  Upload Resumes
+                </h2>
+                <p class="text-left">Upload the resumes you want to sort.</p>
+              </div>
+              <!-- Page title actions -->
+              <div class="col-auto ml-auto d-print-none">
+                <span class="d-none d-sm-inline">
+                  <a href="#" class="btn btn-secondary">
+                    New view
+                  </a>
+                </span>
+                <a href="#" class="btn btn-primary ml-3 d-none d-sm-inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Upload Resume
+                </a>
+                <a href="#" class="btn btn-primary ml-3 d-sm-none btn-icon" aria-label="Upload Resume">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              {{ dropzone.create(action='upload') }}  
+              {{ dropzone.load_js() }}
+              {{ dropzone.config() }}
+            </div>
+            <!-- <form method="post" action="" enctype="multipart/form-data">
+              {{form.submit(class='btn btn-primary')}}
+            </form> -->
+          </div>
+        </main>
+      </div>
+    {% block scripts %}
+    {{super()}}
+  {%endblock scripts %}
+  
+{% endblock body %}  

@@ -1,0 +1,161 @@
+{% extends 'layout.html'%}
+{% block head %}
+  {{super()}}
+{% endblock head %}  
+
+{% block body %}
+  {{super()}}
+<div class="content">
+        <main class="container">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class=flashes>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+          <!-- Page title -->
+          <div class="page-header">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  Overview
+                </div>
+                <h2 class="page-title">
+                  Dashboard
+                </h2>
+              </div>
+              <!-- Page title actions -->
+              <div class="col-auto ml-auto d-print-none">
+                <span class="d-none d-sm-inline">
+                  <a href="#" class="btn btn-secondary">
+                    New view
+                  </a>
+                </span>
+                <a href="{{url_for('upload')}}" class="btn btn-primary ml-3 d-none d-sm-inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Upload Resume
+                </a>
+                <a href="#" class="btn btn-primary ml-3 d-sm-none btn-icon" aria-label="Upload Resume">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-5 col-sm-12 col-12">
+            <p class="text-left">We by default extract name, contact information, education details. Make sure you fill the form below before starting to upload resmue.</p>  
+          <form class="card" action="upload.html">
+            <div class="card-body">
+              <h3 class="card-title">Resume Sorting Criteria</h3>
+              <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-8">
+                  <div class="mb-3">
+                    <div class="form-label">Required Experience</div>
+                    <div>
+                      {% for i in form.experience %}
+                      <label class="form-check form-check-inline">
+                        {{i(class="form-check-input")}}
+                        <span class="form-check-label">{{i.label}}</span>
+                    </label>
+                    {% endfor %}
+                      <!-- <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='exp' type="radio">
+                        <span class="form-check-label">1-3 years</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='exp' type="radio">
+                        <span class="form-check-label">3-5 years</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='exp' type="radio" >
+                        <span class="form-check-label">5+ years</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='exp' type="radio" checked>
+                        <span class="form-check-label">None</span>
+                      </label> -->
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-md-6">
+                  <div class="mb-2">
+                    <label class="form-label">List of Technical Skills</label>
+                    <div class="form-hint">Write skills in quotation marks separated by space</div>
+                    {{ form.t_skills(class="form-control",placeholder="Technical Skills")}}
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <div class="mb-2">
+                    <label class="form-label">List of Key Skills</label>
+                    <div class="form-hint">Write skills in quotation marks separated by space</div>
+                    {{ form.k_skills(class="form-control",placeholder="Key Skills")}}              
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="form-label">Select from following options, If you want them to be considered.</div>
+                    <label class="form-check form-switch">
+                      {{form.refrences(class="form-check-input")}}
+                      <span class="form-check-label">{{form.refrences.label}}</span>
+                    </label>
+                    <label class="form-check form-switch">
+                      {{form.projects(class="form-check-input")}}
+                      <span class="form-check-label">{{form.projects.label}}</span>
+                    </label>
+                    <label class="form-check form-switch">
+                      {{form.e_history(class="form-check-input")}}
+                      <span class="form-check-label">{{form.e_history.label}}</span>
+                    </label>
+                    <label class="form-check form-switch">
+                      {{form.carrier_obj(class="form-check-input")}}
+                      <span class="form-check-label">{{form.carrier_obj.label}}</span>
+                    </label>
+               </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-9">
+                  <div class="mb-3">
+                    <div class="form-label">Minimum Required Education</div>
+                    <div>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='edu' type="radio">
+                        <span class="form-check-label">SSC</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='edu' type="radio">
+                        <span class="form-check-label">HSC</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='edu' type="radio" >
+                        <span class="form-check-label">Graduate</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='edu' type="radio" checked>
+                        <span class="form-check-label">Post Graduate</span>
+                      </label>
+                      <label class="form-check form-check-inline">
+                        <input class="form-check-input" name='edu' type="radio" checked>
+                        <span class="form-check-label">PHD</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+            <div class="card-footer text-right">
+              {{form.submit(class='btn btn-primary')}}
+            </div>
+          </form>
+        </div>
+        </main>
+      </div>
+    </div>
+ {% block scripts %}
+    {{super()}}
+  {%endblock scripts %}
+  
+{% endblock body %}  
